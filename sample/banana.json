@@ -1,0 +1,21 @@
+{
+    "banana": [
+        "banana.main"
+    ],
+    "banana.Banana.eat": [],
+    "banana.Person.__init__": [
+        "banana.Person.no_bananas"
+    ],
+    "banana.Person.no_bananas": [],
+    "banana.Person.add_banana": [],
+    "banana.Person.eat_bananas": [
+        "banana.Person.no_bananas"
+    ],
+    "banana.main": [
+        "<builtin>.range",
+        "banana.Person.eat_bananas",
+        "banana.Person.add_banana",
+        "banana.Person.__init__"
+    ],
+    "<builtin>.range": []
+}
