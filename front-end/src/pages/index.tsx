@@ -5,17 +5,6 @@ import styles from './index.less';
 
 export default function IndexPage() {
   const pageTitle = '代码克隆检测助手';
-  const [percent, setPercent] = useState(0);
-
-  const startTest = () => {
-    let progress = 0;
-    const p = setInterval(() => {
-      if (percent === 100) {
-        clearInterval(p);
-      }
-      setPercent(progress++);
-    }, 60);
-  };
 
   return (
     <Layout className={styles.wrapper}>
@@ -27,14 +16,9 @@ export default function IndexPage() {
           <FileUploader />
           <FileUploader />
         </div>
-        <Button onClick={startTest} className={styles.startButton}>
+        <Button className={styles.startButton}>
           开始检测
         </Button>
-        <Progress
-          className={styles.progress}
-          type="circle"
-          percent={percent}
-        ></Progress>
       </Layout.Content>
       <Layout.Footer></Layout.Footer>
     </Layout>

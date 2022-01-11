@@ -1,11 +1,8 @@
 import pandas as pd
 import os
 import javalang
-
-
-def check_or_create(path):
-    if not os.path.exists(path):
-        os.mkdir(path)
+from utils import check_path
+from settings import settings
 
 
 def code_to_ast(func):
@@ -24,7 +21,7 @@ def parse_source(file_path, pickle_path):
                              header=None, encoding='utf-8')
     old_source.columns = ['id', 'code']
     new_source = pd.DataFrame(columns=['id', 'code', 'ast'])
-    for idx, row in old_source.iterrows():
+    for _, row in old_source.iterrows():
         try:
             code = row['code']
             ast = code_to_ast(code)
@@ -41,7 +38,7 @@ def read_pairs(file_path):
     return pd.read_pickle(file_path)
 
 
-def split_data(data_path, pairs):
+def split_data(pairs):
     # 以 3:1 比例分割 train 和 test 的数据集
     pairs_cnt = len(pairs)
     train_cnt = pairs_cnt // 4 * 3
@@ -50,23 +47,22 @@ def split_data(data_path, pairs):
     train = data.iloc[:train_cnt]
     test = data.iloc[train_cnt:]
 
-    train_path = data_path+'train/'
-    check_or_create(train_path)
-    train_file_path = train_path+'java_pairs.pkl'
+    check_path(settings.train_path)
+    train_file_path = settings.train_path+'/java_pairs.pkl'
     train.to_pickle(train_file_path)
 
-    test_path = data_path+'test/'
-    check_or_create(test_path)
-    test_file_path = test_path+'java_pairs.pkl'
+    check_path(settings.test_path)
+    test_file_path = settings.test_path+'/java_pairs.pkl'
     test.to_pickle(test_file_path)
 
 
 def main():
-    parse_source("./assets/java_source.tsv",
-                 "./data/java_ast.pkl")
-    pairs = read_pairs("./assets/java_pairs.pkl")
-    split_data("./data/", pairs)
+    parse_source(settings.java_source_path,
+                 settings.java_ast_path)
+    pairs = read_pairs(settings.java_pairs_path)
+    split_data(pairs)
 
 
 if __name__ == "__main__":
     main()
+    # print(pd.read_pickle(settings.java_ast_path))

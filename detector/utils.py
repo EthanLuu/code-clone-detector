@@ -1,6 +1,7 @@
 from javalang.ast import Node
 from tree import BlockNode
 import sys
+import os
 sys.setrecursionlimit(10000)
 
 
@@ -59,7 +60,7 @@ def get_blocks(node, block_seq):
             if get_token(child) not in logic and not hasattr(child, 'block'):
                 block_seq.append(BlockNode(child))
             else:
-                get_blocks_v1(child, block_seq)
+                get_blocks(child, block_seq)
     elif name in logic:
         block_seq.append(BlockNode(node))
         for child in children[1:]:
@@ -67,7 +68,7 @@ def get_blocks(node, block_seq):
             if not hasattr(node, 'block') and token not in logic+['BlockStatement']:
                 block_seq.append(BlockNode(child))
             else:
-                get_blocks_v1(child, block_seq)
+                get_blocks(child, block_seq)
             block_seq.append(BlockNode('End'))
     elif name == 'BlockStatement' or hasattr(node, 'block'):
         block_seq.append(BlockNode(name))
@@ -75,7 +76,11 @@ def get_blocks(node, block_seq):
             if get_token(child)not in logic:
                 block_seq.append(BlockNode(child))
             else:
-                get_blocks_v1(child, block_seq)
+                get_blocks(child, block_seq)
     else:
         for child in children:
-            get_blocks_v1(child, block_seq)
+            get_blocks(child, block_seq)
+
+def check_path(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
