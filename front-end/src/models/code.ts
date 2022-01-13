@@ -1,7 +1,17 @@
-export const detectClone = (samples: string[]) => {
+const api = "http://clone.ethanloo.cn";
+
+
+export const detectClone = async (samples: string[]) => {
   if (samples.length < 2) {
     return;
   }
-  console.log(samples[0]);
-  console.log(samples[1]);
+  const response = await fetch(`${api}/detect`, {
+    method: "POST",
+    body: JSON.stringify({
+      "codeX": samples[0],
+      "codeY": samples[1]
+    })
+  })
+  const data = await response.json();
+  console.log(data)
 };
