@@ -9,20 +9,13 @@
   display: flex;
 }
 
-.pageTitle {
-  font-size: 1.6rem;
-  color: #fff;
-  text-shadow: var(--text-white-shadow);
-}
-
 .uploaders {
-  display: flex;
+  display: grid;
   gap: 16px;
-}
-
-.header {
-  text-align: center;
-  box-shadow: var(--black-shadow);
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
 }
 
 .content {
@@ -30,6 +23,7 @@
   padding: 16px 96px;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .startButton {

@@ -1,26 +1,29 @@
-import { FileUploader } from '@/components/fileUploader';
-import { Layout, Button, Progress } from 'antd';
+import { Button, Layout } from 'antd';
 import { useState } from 'react';
+import { CodeUploader, Footer, Header } from '@/components';
+import { detectClone } from '@/models/code';
 import styles from './index.less';
 
 export default function IndexPage() {
-  const pageTitle = '代码克隆检测助手';
+  const [codeX, setCodeX] = useState('');
+  const [codeY, setCodeY] = useState('');
 
   return (
     <Layout className={styles.wrapper}>
-      <Layout.Header className={styles.header}>
-        <h1 className={styles.pageTitle}>{pageTitle}</h1>
-      </Layout.Header>
+      <Header />
       <Layout.Content className={styles.content}>
         <div className={styles.uploaders}>
-          <FileUploader />
-          <FileUploader />
+          <CodeUploader code={codeX} setCode={setCodeX} />
+          <CodeUploader code={codeY} setCode={setCodeY} />
         </div>
-        <Button className={styles.startButton}>
+        <Button
+          className={styles.startButton}
+          onClick={() => detectClone([codeX, codeY])}
+        >
           开始检测
         </Button>
       </Layout.Content>
-      <Layout.Footer></Layout.Footer>
+      <Footer />
     </Layout>
   );
 }
