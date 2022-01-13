@@ -14,6 +14,7 @@ def code_to_ast(func):
 
 def parse_source(file_path, pickle_path):
     # 将 [id, code] 的 csv 文件转换成 [id, code, ast] 的 pickle 文件
+    check_path(settings.data_path)
     if os.path.exists(pickle_path):
         return pd.read_pickle(pickle_path)
 

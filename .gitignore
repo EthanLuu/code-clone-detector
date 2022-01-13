@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 
 data/
+models/
+models_v0/
 
 # C extensions
 *.so
