@@ -4,7 +4,7 @@ export interface Result {
   error: boolean
 }
 
-const api = process.env.NODE_ENV === "development" ? "" : "https://clone.ethanloo.cn";
+const api = process.env.NODE_ENV === "development" ? "" : "https://cloud.ethanloo.cn";
 export const detectClone = async (samples: string[]) => {
   if (samples.length < 2) {
     return;
