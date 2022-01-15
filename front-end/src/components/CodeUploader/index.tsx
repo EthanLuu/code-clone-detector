@@ -35,14 +35,14 @@ export const CodeUploader: React.FC<{
           <span className="ant-upload-text">点击上传或拖拽至此处</span>
         </Upload.Dragger>
       </div>
-
-      <Input.TextArea
-        placeholder="请上传代码文件或将文本复制此处"
-        value={code}
-        onChange={handleInput}
-        allowClear
-        rows={12}
-      ></Input.TextArea>
+      <div className={styles.inputWrapper}>
+        <Input.TextArea
+          placeholder="请上传代码文件或将文本复制此处"
+          value={code}
+          onChange={handleInput}
+          allowClear
+        ></Input.TextArea>
+      </div>
     </div>
   );
 };

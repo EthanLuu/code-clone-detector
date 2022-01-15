@@ -1,40 +1,30 @@
-import { Col, Row, Statistic } from 'antd';
+import { Col, Result as AntdResult, Row, Statistic } from 'antd';
 import { Result as ResultProps } from '@/models/code';
-import { CheckCircleTwoTone, CloseCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
-import styles from './index.less';
 
 export const Result: React.FC<{ result: ResultProps }> = ({ result }) => {
-  if (result.error) {
-    return (
-      <Row gutter={16}>
-        <Col span={2} className={styles.iconContainer}>
-          <CloseCircleTwoTone className={styles.icon} twoToneColor={"#ff4d4f"}/>
-        </Col>
-        <Col>
-          <Statistic
-            title={'检测失败'}
-            value={result.message}
-          />
-        </Col>
-      </Row>
-    );
-  }
-
+  const { data } = result;
   return (
-    <Row gutter={16}>
-      <Col span={2} className={styles.iconContainer}>
-        {result.flag ? (
-          <WarningTwoTone twoToneColor="#eb2f96" className={styles.icon} />
-        ) : (
-          <CheckCircleTwoTone twoToneColor="#52c41a" className={styles.icon} />
-        )}
-      </Col>
-      <Col>
-        <Statistic
-          title={'检测结果'}
-          value={result.message}
-        />
-      </Col>
-    </Row>
+    <AntdResult
+      status={result.error ? 'error' : result.flag ? 'warning' : 'success'}
+      title={result.error ? '检测失败：' + result.message : result.message}
+      extra={[
+        <Row gutter={16} justify="center" align="middle">
+          <Col span={9}>
+            <Statistic
+              title={'Type-1 clone chance'}
+              value={data['type-1']}
+              precision={4}
+            />
+          </Col>
+          <Col span={9}>
+            <Statistic
+              title={'Type-2 clone chance'}
+              value={data['type-2']}
+              precision={4}
+            />
+          </Col>
+        </Row>,
+      ]}
+    />
   );
 };

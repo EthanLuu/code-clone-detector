@@ -12,13 +12,15 @@ export default function IndexPage() {
     const stopLoading = message.loading('正在进行检测');
     const result = await detectClone([codeX, codeY]);
     stopLoading();
-    Modal.info({
-      width: 640,
-      icon: null,
-      closable: true,
-      okText: '确认',
-      content: <Result result={result} />,
-    });
+    if (result) {
+      Modal.info({
+        width: 640,
+        icon: null,
+        closable: true,
+        okText: '确认',
+        content: <Result result={result} />,
+      });
+    }
   };
 
   return (
